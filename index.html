@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Imperial Academy | Humbu Community Nexus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        .glow {
+            text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+        }
+        .gold {
+            color: #D4AF37;
+        }
+        .green {
+            color: #00ff41;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #000000 0%, #1a2a1a 100%);
+            border-bottom: 3px solid #D4AF37;
+            margin-bottom: 2rem;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            letter-spacing: 5px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            font-family: monospace;
+        }
+        /* Rank cards */
+        .rank-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .rank-card {
+            background: #111;
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        .rank-card h3 {
+            color: #D4AF37;
+            font-size: 0.9rem;
+        }
+        .rank-card .number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #00ff41;
+        }
+        /* Week cards */
+        .week-card {
+            background: #0f0f0f;
+            border-left: 8px solid #D4AF37;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            transition: 0.2s;
+        }
+        .week-card:hover {
+            background: #151515;
+            transform: translateX(5px);
+        }
+        .week-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .week-icon {
+            width: 60px;
+            height: 60px;
+            background: #1e1e1e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .week-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #D4AF37;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        .week-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #D4AF37;
+        }
+        .week-desc {
+            margin-left: 70px;
+            color: #bbb;
+        }
+        .week-badge {
+            background: #00ff41;
+            color: #000;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.5rem 0 0 70px;
+        }
+        .rules {
+            background: #0a0f0a;
+            border: 1px solid #00ff41;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            border-top: 1px solid #222;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .week-title { font-size: 1.3rem; }
+            .week-desc { margin-left: 0; }
+            .week-badge { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <h1>⚔️ THE IMPERIAL ACADEMY ⚔️</h1>
+    <p>> SOVEREIGN TECH INITIATIVE :: COHORT VHEMBE-01</p>
+    <p class="green">"Absolute Truth. Absolute Sovereignty."</p>
+</div>
+
+<div class="container">
+    <!-- Mission -->
+    <section style="margin-bottom: 2rem;">
+        <h2 class="gold">🌍 The Mission: Africa’s Response to the AI Revolution</h2>
+        <p>Robots and AI will replace millions of jobs. The only way to survive is to <strong>build and own the machines</strong>. Like China and the West, South Africa must produce creators, not consumers. This academy turns your phone into a weapon of production – from web servers to local AI. You will learn to build, defend, and scale your own digital empire.</p>
+    </section>
+
+    <!-- Director's Verified Authority -->
+    <h2 class="gold">👑 Director’s Rank & Verification</h2>
+    <div class="rank-grid">
+        <div class="rank-card"><h3>South Africa (Termux)</h3><div class="number">#1 Monthly</div></div>
+        <div class="rank-card"><h3>Global Skill Rank</h3><div class="number">Top 1%</div></div>
+        <div class="rank-card"><h3>Python Global</h3><div class="number">Top 20</div></div>
+        <div class="rank-card"><h3>ORCID Verified</h3><div class="number">Researcher ID</div></div>
+        <div class="rank-card"><h3>Platforms</h3><div class="number">GitHub · LinkedIn · ORCID</div></div>
+    </div>
+
+    <!-- Rules of Engagement -->
+    <div class="rules">
+        <h3 class="gold">📜 Imperial Academy – Rules of Engagement</h3>
+        <ul style="margin-left: 1.5rem;">
+            <li>✅ One day per day – no skipping ahead.</li>
+            <li>✅ Screenshot proof for every task.</li>
+            <li>✅ Try first, then ask – no “what if” paralysis.</li>
+            <li>✅ Maintain a personal <code>IMPERIAL_LOG.txt</code> with errors and fixes.</li>
+            <li>✅ Never use these skills on networks you do not own.</li>
+        </ul>
+        <p class="green" style="margin-top: 1rem;">⚡ Violation = immediate expulsion from the Academy.</p>
+    </div>
+
+    <!-- 12‑Week Roadmap with custom SVG icons per week -->
+    <h2 class="gold">🗺️ The 12‑Week Sovereign Roadmap</h2>
+
+    <!-- Week 1 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v12m0 0-3-3m3 3 3-3M5 21h14"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 1 – The Awakening</div>
+        </div>
+        <div class="week-desc">Install Termux, navigate the Linux filesystem, run first commands. From “user” to “Operator”.</div>
+        <div class="week-badge">🔧 FOUNDATION</div>
+    </div>
+
+    <!-- Week 2 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M4 7h16M4 12h16M4 17h10" stroke-width="2"/>
+                    <circle cx="19" cy="17" r="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 2 – The Stack</div>
+        </div>
+        <div class="week-desc">Python, Bash sanitizer, network scanning (Nmap). Build the Dawn Report – daily system intelligence.</div>
+        <div class="week-badge">🐍 PYTHON + BASH</div>
+    </div>
+
+    <!-- Week 3 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 3 – The Web Gateway</div>
+        </div>
+        <div class="week-desc">Flask web server, JSON APIs, Imperial Dashboard. Your phone becomes a visible broadcast node.</div>
+        <div class="week-badge">🌐 FULL‑STACK</div>
+    </div>
+
+    <!-- Week 4 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 3v1m0 16v1M3 12h1m16 0h1M5.64 5.64l.7.7m12.02 12.02l.7.7" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="4"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 4 – The Sentinel</div>
+        </div>
+        <div class="week-desc">Vulnerability scanning (Nmap scripts), Hydra brute‑force simulation, packet sniffing (tcpdump), firewall logic (IPTables simulation).</div>
+        <div class="week-badge">🛡️ CYBER DEFENSE</div>
+    </div>
+
+    <!-- Week 5 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10z" stroke-width="1.5"/>
+                    <path d="M12 6v6l4 2" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 5 – The Imperial Mind (Local AI)</div>
+        </div>
+        <div class="week-desc">Integrate DeepSeek‑R1 or Ollama offline – make your node reason and answer questions without the cloud.</div>
+        <div class="week-badge">🧠 ARTIFICIAL INTELLIGENCE</div>
+    </div>
+
+    <!-- Week 6 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/>
+                    <line x1="9" y1="9" x2="15" y2="15"/>
+                    <line x1="15" y1="9" x2="9" y2="15"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 6 – Data Engineering</div>
+        </div>
+        <div class="week-desc">SQLite3, logging market data, exporting to CSV/JSON, building a time‑series database of your own metrics.</div>
+        <div class="week-badge">🗄️ SQL & STORAGE</div>
+    </div>
+
+    <!-- Week 7 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 7 – The Global Bridge</div>
+        </div>
+        <div class="week-desc">Cloudflare Tunnel or ngrok – expose your local server to the world. Your phone becomes a globally reachable edge node.</div>
+        <div class="week-badge">☁️ DEPLOYMENT</div>
+    </div>
+
+    <!-- Week 8 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <rect x="5" y="7" width="14" height="10" rx="1" stroke-width="2"/>
+                    <path d="M8 7V5h8v2" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 8 – Containerisation (proot-distro)</div>
+        </div>
+        <div class="week-desc">Run Alpine or Ubuntu inside Termux, isolate your services, simulate Docker‑like containers on mobile.</div>
+        <div class="week-badge">📦 CONTAINERS</div>
+    </div>
+
+    <!-- Week 9 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M16.5 9.4 21 12l-4.5 2.6M7.5 14.6 3 12l4.5-2.6" stroke-width="2"/>
+                    <path d="m12 7.5 4.5 2.6v5.2l-4.5 2.6-4.5-2.6V10L12 7.5z" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 9 – Cloud + VPS Hardening</div>
+        </div>
+        <div class="week-desc">Deploy to a real VPS (DigitalOcean/AWS), change SSH ports, set up fail2ban, run persistent tmux sessions.</div>
+        <div class="week-badge">🔐 CLOUD SECURITY</div>
+    </div>
+
+    <!-- Week 10 -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M20 12H4M12 4v16" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 10 – Advanced Monitoring</div>
+        </div>
+        <div class="week-desc">Glances, Prometheus node exporter, centralised logging (rsyslog). Know everything about your node in real time.</div>
+        <div class="week-badge">📡 OBSERVABILITY</div>
+    </div>
+
+    <!-- Week 11 + 12 combined for brevity but still clear -->
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9 12h6M12 9v6" stroke-width="2"/>
+                    <circle cx="12" cy="12" r="9" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 11 – Incident Response & Auditing</div>
+        </div>
+        <div class="week-desc">Lynis security audits, AIDE integrity checks, hardening scripts. Simulate a breach and trace logs.</div>
+        <div class="week-badge">🚨 DFIR</div>
+    </div>
+
+    <div class="week-card">
+        <div class="week-header">
+            <div class="week-icon">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke-width="2"/>
+                    <path d="M8 7h8M8 11h6M8 15h4" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="week-title">Week 12 – Capstone: Sovereign Enterprise Node</div>
+        </div>
+        <div class="week-desc">Combine everything: Flask dashboard, market API, database, AI query, cloud tunnel. Final graduation to Imperial Operator.</div>
+        <div class="week-badge">🎓 GRADUATION</div>
+    </div>
+
+    <!-- Closing statement -->
+    <div style="text-align: center; margin-top: 3rem; padding: 1.5rem; background: #0c0c0c; border-radius: 20px;">
+        <p class="gold">🗝️ "You don't wait for technology to come to Africa – <strong>you build it yourself.</strong>"</p>
+        <p>All 60 days are inside this repository. Start Week 1 now and claim your terminal.</p>
+        <p style="margin-top: 1rem;">📁 <code>Week_01_The_Awakening/Day_01_Termux_Setup.md</code></p>
+    </div>
+</div>
+<footer>
+    <p>© 2026 Humbu Wandeme Trading Enterprise | Vhembe District, Limpopo</p>
+    <p>ORCID: 0009‑0007‑3368‑5080 | GitHub: Humbulan | Rank verified by global leaderboards</p>
+</footer>
+</body>
+</html>
