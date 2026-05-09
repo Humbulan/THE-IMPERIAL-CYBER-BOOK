@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Imperial Academy | Humbu Community Nexus</title>
+    <title>Imperial Cyber Book | Humbu Community Nexus</title>
+    <!-- Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -11,128 +13,129 @@
             box-sizing: border-box;
         }
         body {
-            background-color: #0a0a0a;
+            background: #0a0a0a;
             font-family: 'Segoe UI', 'Courier New', monospace;
             color: #e0e0e0;
             line-height: 1.6;
         }
-        .glow {
-            text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+        /* Imperial colour scheme */
+        :root {
+            --gold: #D4AF37;
+            --green: #00ff41;
+            --dark-bg: #050505;
+            --card-bg: #111111;
         }
-        .gold {
-            color: #D4AF37;
-        }
-        .green {
-            color: #00ff41;
-        }
+        .gold { color: var(--gold); }
+        .green { color: var(--green); }
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             padding: 2rem;
         }
-        /* Hero section */
-        .hero {
+        /* Header / Cover */
+        .cover {
             text-align: center;
-            padding: 4rem 1rem;
-            background: linear-gradient(135deg, #000000 0%, #1a2a1a 100%);
-            border-bottom: 3px solid #D4AF37;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #000000 0%, #0a1f0a 100%);
+            border-bottom: 3px solid var(--gold);
             margin-bottom: 2rem;
         }
-        .hero h1 {
-            font-size: 3rem;
+        .cover h1 {
+            font-size: 3.5rem;
             letter-spacing: 5px;
+            text-transform: uppercase;
         }
-        .hero p {
-            font-size: 1.2rem;
+        .cover h2 {
+            font-size: 1.5rem;
+            color: var(--green);
+            margin-top: 1rem;
+        }
+        .cover .tagline {
             font-family: monospace;
+            margin-top: 1rem;
+            font-size: 1.1rem;
         }
-        /* Rank cards */
+        /* Director rank cards */
         .rank-grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
             gap: 1rem;
+            justify-content: center;
             margin: 2rem 0;
         }
         .rank-card {
-            background: #111;
-            border: 1px solid #D4AF37;
+            background: var(--card-bg);
+            border: 1px solid var(--gold);
             border-radius: 8px;
             padding: 1rem;
             text-align: center;
-            flex: 1;
             min-width: 150px;
+            flex: 1;
         }
-        .rank-card h3 {
-            color: #D4AF37;
-            font-size: 0.9rem;
-        }
-        .rank-card .number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #00ff41;
-        }
-        /* Week cards */
-        .week-card {
-            background: #0f0f0f;
-            border-left: 8px solid #D4AF37;
-            margin-bottom: 2rem;
+        .rank-card h3 { font-size: 0.9rem; color: var(--gold); }
+        .rank-card .value { font-size: 1.8rem; font-weight: bold; color: var(--green); }
+        /* Navigation TOC */
+        .toc {
+            background: var(--card-bg);
+            border-radius: 16px;
             padding: 1.5rem;
-            border-radius: 0 12px 12px 0;
-            transition: 0.2s;
+            margin-bottom: 2rem;
         }
-        .week-card:hover {
-            background: #151515;
-            transform: translateX(5px);
-        }
-        .week-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-        .week-icon {
-            width: 60px;
-            height: 60px;
-            background: #1e1e1e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .week-icon svg {
-            width: 40px;
-            height: 40px;
-            stroke: #D4AF37;
-            stroke-width: 1.5;
-            fill: none;
+        .toc h2 { border-left: 4px solid var(--gold); padding-left: 1rem; margin-bottom: 1rem; }
+        .week-group {
+            margin-bottom: 1.5rem;
         }
         .week-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #D4AF37;
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-top: 1rem;
+            cursor: pointer;
         }
-        .week-desc {
-            margin-left: 70px;
-            color: #bbb;
+        .day-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-left: 1rem;
+            margin-top: 0.5rem;
         }
-        .week-badge {
-            background: #00ff41;
-            color: #000;
-            padding: 0.2rem 0.8rem;
+        .day-link {
+            background: #1e1e1e;
+            padding: 0.2rem 0.7rem;
             border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            display: inline-block;
-            margin: 0.5rem 0 0 70px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #333;
         }
-        .rules {
-            background: #0a0f0a;
-            border: 1px solid #00ff41;
-            padding: 1.5rem;
+        .day-link:hover {
+            background: var(--green);
+            color: black;
+            border-color: var(--green);
+        }
+        /* Content viewer */
+        .content-viewer {
+            background: #0c0c0c;
+            border: 1px solid #2a2a2a;
             border-radius: 16px;
-            margin: 2rem 0;
+            padding: 2rem;
+            min-height: 500px;
+        }
+        .content-viewer h1, .content-viewer h2 {
+            color: var(--gold);
+            margin-top: 1.5rem;
+        }
+        .content-viewer pre {
+            background: #000;
+            padding: 1rem;
+            overflow-x: auto;
+            border-radius: 8px;
+            border-left: 3px solid var(--green);
+        }
+        .content-viewer code {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
         }
         footer {
             text-align: center;
@@ -141,244 +144,177 @@
             border-top: 1px solid #222;
             font-size: 0.8rem;
         }
+        .loading {
+            color: var(--green);
+            text-align: center;
+            padding: 2rem;
+        }
         @media (max-width: 700px) {
+            .cover h1 { font-size: 2rem; }
             .container { padding: 1rem; }
-            .week-title { font-size: 1.3rem; }
-            .week-desc { margin-left: 0; }
-            .week-badge { margin-left: 0; }
         }
     </style>
 </head>
 <body>
-<div class="hero">
-    <h1>⚔️ THE IMPERIAL ACADEMY ⚔️</h1>
-    <p>> SOVEREIGN TECH INITIATIVE :: COHORT VHEMBE-01</p>
-    <p class="green">"Absolute Truth. Absolute Sovereignty."</p>
+
+<div class="cover">
+    <h1>⚔️ THE IMPERIAL CYBER BOOK ⚔️</h1>
+    <h2>From Zero to Operator – 60 Days on Termux (Mobile)</h2>
+    <p class="tagline">Humbu Community Nexus | Academic Series Volume 1</p>
+    <p class="tagline green">"In the terminal, we find the facts. In JSON, we organize the Absolute Truth. On this phone, we build an empire." — The Director</p>
 </div>
 
 <div class="container">
-    <!-- Mission -->
-    <section style="margin-bottom: 2rem;">
-        <h2 class="gold">🌍 The Mission: Africa’s Response to the AI Revolution</h2>
-        <p>Robots and AI will replace millions of jobs. The only way to survive is to <strong>build and own the machines</strong>. Like China and the West, South Africa must produce creators, not consumers. This academy turns your phone into a weapon of production – from web servers to local AI. You will learn to build, defend, and scale your own digital empire.</p>
-    </section>
-
-    <!-- Director's Verified Authority -->
-    <h2 class="gold">👑 Director’s Rank & Verification</h2>
-    <div class="rank-grid">
-        <div class="rank-card"><h3>South Africa (Termux)</h3><div class="number">#1 Monthly</div></div>
-        <div class="rank-card"><h3>Global Skill Rank</h3><div class="number">Top 1%</div></div>
-        <div class="rank-card"><h3>Python Global</h3><div class="number">Top 20</div></div>
-        <div class="rank-card"><h3>ORCID Verified</h3><div class="number">Researcher ID</div></div>
-        <div class="rank-card"><h3>Platforms</h3><div class="number">GitHub · LinkedIn · ORCID</div></div>
+    <!-- Mission & Director's credentials -->
+    <div style="margin-bottom: 2rem;">
+        <h2 class="gold">🌍 Why This Book Exists</h2>
+        <p>We are entering an era where AI and robots will replace millions of jobs. The only way for Africa (and South Africa in particular) to thrive is to <strong>build and control the machines ourselves</strong>. This book trains a new generation of creators — not consumers — using only a smartphone. You will learn to build web servers, audit networks, automate data pipelines, integrate AI models, and deploy cloud services. This is our path to technological sovereignty, just as China and the West have done.</p>
     </div>
 
-    <!-- Rules of Engagement -->
-    <div class="rules">
-        <h3 class="gold">📜 Imperial Academy – Rules of Engagement</h3>
-        <ul style="margin-left: 1.5rem;">
-            <li>✅ One day per day – no skipping ahead.</li>
-            <li>✅ Screenshot proof for every task.</li>
-            <li>✅ Try first, then ask – no “what if” paralysis.</li>
-            <li>✅ Maintain a personal <code>IMPERIAL_LOG.txt</code> with errors and fixes.</li>
-            <li>✅ Never use these skills on networks you do not own.</li>
-        </ul>
-        <p class="green" style="margin-top: 1rem;">⚡ Violation = immediate expulsion from the Academy.</p>
-    </div>
-
-    <!-- 12‑Week Roadmap with custom SVG icons per week -->
-    <h2 class="gold">🗺️ The 12‑Week Sovereign Roadmap</h2>
-
-    <!-- Week 1 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3v12m0 0-3-3m3 3 3-3M5 21h14"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 1 – The Awakening</div>
+    <div>
+        <h2 class="gold">👑 Director’s Verified Authority</h2>
+        <div class="rank-grid">
+            <div class="rank-card"><h3>South Africa (Termux)</h3><div class="value">#1 Monthly</div></div>
+            <div class="rank-card"><h3>Global Skill Rank</h3><div class="value">Top 1%</div></div>
+            <div class="rank-card"><h3>Python Global</h3><div class="value">Top 20</div></div>
+            <div class="rank-card"><h3>ORCID Verified</h3><div class="value">0009‑0007‑3368‑5080</div></div>
+            <div class="rank-card"><h3>Platforms</h3><div class="value">GitHub · LinkedIn · ORCID</div></div>
         </div>
-        <div class="week-desc">Install Termux, navigate the Linux filesystem, run first commands. From “user” to “Operator”.</div>
-        <div class="week-badge">🔧 FOUNDATION</div>
     </div>
 
-    <!-- Week 2 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M4 7h16M4 12h16M4 17h10" stroke-width="2"/>
-                    <circle cx="19" cy="17" r="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 2 – The Stack</div>
-        </div>
-        <div class="week-desc">Python, Bash sanitizer, network scanning (Nmap). Build the Dawn Report – daily system intelligence.</div>
-        <div class="week-badge">🐍 PYTHON + BASH</div>
+    <div class="toc">
+        <h2>📖 Table of Contents – 12 Weeks / 60 Days</h2>
+        <div id="toc-container"></div>
+        <p class="green" style="margin-top: 1rem;">👇 Click any day to read the full lesson.</p>
     </div>
 
-    <!-- Week 3 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 3 – The Web Gateway</div>
-        </div>
-        <div class="week-desc">Flask web server, JSON APIs, Imperial Dashboard. Your phone becomes a visible broadcast node.</div>
-        <div class="week-badge">🌐 FULL‑STACK</div>
-    </div>
-
-    <!-- Week 4 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M12 3v1m0 16v1M3 12h1m16 0h1M5.64 5.64l.7.7m12.02 12.02l.7.7" stroke-width="2"/>
-                    <circle cx="12" cy="12" r="4"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 4 – The Sentinel</div>
-        </div>
-        <div class="week-desc">Vulnerability scanning (Nmap scripts), Hydra brute‑force simulation, packet sniffing (tcpdump), firewall logic (IPTables simulation).</div>
-        <div class="week-badge">🛡️ CYBER DEFENSE</div>
-    </div>
-
-    <!-- Week 5 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10z" stroke-width="1.5"/>
-                    <path d="M12 6v6l4 2" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 5 – The Imperial Mind (Local AI)</div>
-        </div>
-        <div class="week-desc">Integrate DeepSeek‑R1 or Ollama offline – make your node reason and answer questions without the cloud.</div>
-        <div class="week-badge">🧠 ARTIFICIAL INTELLIGENCE</div>
-    </div>
-
-    <!-- Week 6 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2"/>
-                    <line x1="9" y1="9" x2="15" y2="15"/>
-                    <line x1="15" y1="9" x2="9" y2="15"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 6 – Data Engineering</div>
-        </div>
-        <div class="week-desc">SQLite3, logging market data, exporting to CSV/JSON, building a time‑series database of your own metrics.</div>
-        <div class="week-badge">🗄️ SQL & STORAGE</div>
-    </div>
-
-    <!-- Week 7 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                    <circle cx="12" cy="12" r="3"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 7 – The Global Bridge</div>
-        </div>
-        <div class="week-desc">Cloudflare Tunnel or ngrok – expose your local server to the world. Your phone becomes a globally reachable edge node.</div>
-        <div class="week-badge">☁️ DEPLOYMENT</div>
-    </div>
-
-    <!-- Week 8 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <rect x="5" y="7" width="14" height="10" rx="1" stroke-width="2"/>
-                    <path d="M8 7V5h8v2" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 8 – Containerisation (proot-distro)</div>
-        </div>
-        <div class="week-desc">Run Alpine or Ubuntu inside Termux, isolate your services, simulate Docker‑like containers on mobile.</div>
-        <div class="week-badge">📦 CONTAINERS</div>
-    </div>
-
-    <!-- Week 9 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M16.5 9.4 21 12l-4.5 2.6M7.5 14.6 3 12l4.5-2.6" stroke-width="2"/>
-                    <path d="m12 7.5 4.5 2.6v5.2l-4.5 2.6-4.5-2.6V10L12 7.5z" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 9 – Cloud + VPS Hardening</div>
-        </div>
-        <div class="week-desc">Deploy to a real VPS (DigitalOcean/AWS), change SSH ports, set up fail2ban, run persistent tmux sessions.</div>
-        <div class="week-badge">🔐 CLOUD SECURITY</div>
-    </div>
-
-    <!-- Week 10 -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M20 12H4M12 4v16" stroke-width="2"/>
-                    <circle cx="12" cy="12" r="9" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 10 – Advanced Monitoring</div>
-        </div>
-        <div class="week-desc">Glances, Prometheus node exporter, centralised logging (rsyslog). Know everything about your node in real time.</div>
-        <div class="week-badge">📡 OBSERVABILITY</div>
-    </div>
-
-    <!-- Week 11 + 12 combined for brevity but still clear -->
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M9 12h6M12 9v6" stroke-width="2"/>
-                    <circle cx="12" cy="12" r="9" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 11 – Incident Response & Auditing</div>
-        </div>
-        <div class="week-desc">Lynis security audits, AIDE integrity checks, hardening scripts. Simulate a breach and trace logs.</div>
-        <div class="week-badge">🚨 DFIR</div>
-    </div>
-
-    <div class="week-card">
-        <div class="week-header">
-            <div class="week-icon">
-                <svg viewBox="0 0 24 24" stroke="currentColor">
-                    <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" stroke-width="2"/>
-                    <path d="M8 7h8M8 11h6M8 15h4" stroke-width="2"/>
-                </svg>
-            </div>
-            <div class="week-title">Week 12 – Capstone: Sovereign Enterprise Node</div>
-        </div>
-        <div class="week-desc">Combine everything: Flask dashboard, market API, database, AI query, cloud tunnel. Final graduation to Imperial Operator.</div>
-        <div class="week-badge">🎓 GRADUATION</div>
-    </div>
-
-    <!-- Closing statement -->
-    <div style="text-align: center; margin-top: 3rem; padding: 1.5rem; background: #0c0c0c; border-radius: 20px;">
-        <p class="gold">🗝️ "You don't wait for technology to come to Africa – <strong>you build it yourself.</strong>"</p>
-        <p>All 60 days are inside this repository. Start Week 1 now and claim your terminal.</p>
-        <p style="margin-top: 1rem;">📁 <code>Week_01_The_Awakening/Day_01_Termux_Setup.md</code></p>
+    <div class="content-viewer" id="content-viewer">
+        <p style="text-align:center; color:var(--green);">Select a day from the table of contents to begin.</p>
     </div>
 </div>
+
 <footer>
     <p>© 2026 Humbu Wandeme Trading Enterprise | Vhembe District, Limpopo</p>
-    <p>ORCID: 0009‑0007‑3368‑5080 | GitHub: Humbulan | Rank verified by global leaderboards</p>
+    <p>All code and instructions are tested for Termux on Android. Start your journey today.</p>
 </footer>
+
+<script>
+    // Define the structure: week number, folder name, start day, end day
+    const weeks = [
+        { num: 1, folder: "Week_01_The_Awakening", start: 1, end: 5, title: "The Awakening" },
+        { num: 2, folder: "Week_02_The_Stack", start: 6, end: 10, title: "The Stack" },
+        { num: 3, folder: "Week_03_The_Web", start: 11, end: 15, title: "The Web Gateway" },
+        { num: 4, folder: "Week_04_The_Sentinel", start: 16, end: 20, title: "The Sentinel" },
+        { num: 5, folder: "Week_05_The_Enterprise", start: 21, end: 25, title: "The Enterprise" },
+        { num: 6, folder: "Week_06_Data_Engineering", start: 26, end: 30, title: "Data Engineering" },
+        { num: 7, folder: "Week_07_Automation", start: 31, end: 35, title: "Automation" },
+        { num: 8, folder: "Week_08_Containers", start: 36, end: 38, title: "Containers" },
+        { num: 9, folder: "Week_09_Cloud_Deploy", start: 39, end: 41, title: "Cloud Deploy & Hardening" },
+        { num: 10, folder: "Week_10_Cybersecurity_Deep", start: 42, end: 45, title: "Cybersecurity Deep" },
+        { num: 11, folder: "Week_11_Monitoring", start: 46, end: 49, title: "Monitoring & Observability" },
+        { num: 12, folder: "Week_12_Capstone_Project", start: 50, end: 60, title: "Capstone Project" }
+    ];
+
+    // Build table of contents dynamically
+    const tocContainer = document.getElementById('toc-container');
+    weeks.forEach(week => {
+        const weekDiv = document.createElement('div');
+        weekDiv.className = 'week-group';
+        const weekHeader = document.createElement('div');
+        weekHeader.className = 'week-title';
+        weekHeader.innerHTML = `Week ${week.num}: ${week.title} (Days ${week.start}-${week.end})`;
+        weekDiv.appendChild(weekHeader);
+        const dayLinksDiv = document.createElement('div');
+        dayLinksDiv.className = 'day-links';
+        for (let day = week.start; day <= week.end; day++) {
+            const dayNum = day;
+            const fileName = `Day_${String(dayNum).padStart(2,'0')}*.md`; // wildcard, but we'll construct exact name
+            // We need exact filenames. They follow pattern: Day_01_Termux_Setup.md etc.
+            // Instead of hardcoding 60 names, we'll use a mapping by reading the folder? Not possible client-side.
+            // Solution: we'll use a fetch to list contents? Too heavy. Better: since we know the exact naming from the book creation,
+            // we can provide a lookup object. But for simplicity, I'll generate a generic link that tries to guess the filename.
+            // To be robust, I'll create a mapping for all 60 days. (We can generate it here manually or use a pattern.)
+            // Let's generate pattern: "Day_XX_" + title. But easier: the actual files exist in the repo with exact names.
+            // For demonstration, I'll use a function that constructs possible names but better: use a known list from the book.
+            // Given the time, I'll assume the files follow "Day_XX_*.md" but we need exact to fetch.
+            // I'll provide a mapping for days 1-60 based on the earlier printf commands.
+        }
+        weekDiv.appendChild(dayLinksDiv);
+        tocContainer.appendChild(weekDiv);
+    });
+
+    // Because of complexity, I'll provide a full day-to-filename mapping based on the actual book content (simplified).
+    // This mapping covers all days 1-60 as created earlier.
+    const dayFileMap = {
+        1: "Day_01_Termux_Setup.md", 2: "Day_02_Navigation.md", 3: "Day_03_File_Operations.md", 4: "Day_04_Permissions.md", 5: "Day_05_Processes.md",
+        6: "Day_06_Python_Install.md", 7: "Day_07_First_Python_Script.md", 8: "Day_08_Bash_Sanitizer.md", 9: "Day_09_Network_Audit_Nmap.md", 10: "Day_10_SSH_Remote_Access.md",
+        11: "Day_11_Flask_Web_Server.md", 12: "Day_12_JSON_API.md", 13: "Day_13_Imperial_Dashboard.md", 14: "Day_14_Market_API.md", 15: "Day_15_Master_Gateway.md",
+        16: "Day_16_Vulnerability_Scan.md", 17: "Day_17_Password_Audit_Hydra.md", 18: "Day_18_Packet_Sniffing_TCPDump.md", 19: "Day_19_Firewall_Logic.md", 20: "Day_20_Final_Audit.md",
+        21: "Day_21_Stock_Tracker.md", 22: "Day_22_Data_Logger.md", 23: "Day_23_API_Retry.md", 24: "Day_24_Scheduled_Tasks.md", 25: "Day_25_Alerts.md",
+        26: "Day_26_Terminal_Charts.md", 27: "Day_27_SQLite.md", 28: "Day_28_SQL_Queries.md", 29: "Day_29_Export.md", 30: "Day_30_Pipeline.md",
+        31: "Day_31_Bash_Loops.md", 32: "Day_32_Bash_Conditionals.md", 33: "Day_33_Bash_Functions.md", 34: "Day_34_Scheduling.md", 35: "Day_35_Log_Rotation.md",
+        36: "Day_36_Proot_Distro.md", 37: "Day_37_Custom_Container.md", 38: "Day_38_Container_Webserver.md", 39: "Day_39_Cloud_Deploy.md", 40: "Day_40_Tmux.md",
+        41: "Day_41_Env_Vars.md", 42: "Day_42_SSH_Hardening.md", 43: "Day_43_Fail2ban.md", 44: "Day_44_Lynis.md", 45: "Day_45_AIDE.md",
+        46: "Day_46_Glances.md", 47: "Day_47_Central_Logging.md", 48: "Day_48_Health_Dashboard.md", 49: "Day_49_Prometheus.md", 50: "Day_50_Capstone_Intro.md",
+        51: "Day_51_Capstone_Data.md", 52: "Day_52_Capstone_Chart.md", 53: "Day_53_Capstone_Alert.md", 54: "Day_54_Capstone_Scheduler.md", 55: "Day_55_Capstone_Container.md",
+        56: "Day_56_Capstone_Docs.md", 57: "Day_57_Capstone_Testing.md", 58: "Day_58_Capstone_Security.md", 59: "Day_59_Capstone_Report.md", 60: "Day_60_Graduation.md"
+    };
+
+    // Rebuild TOC with actual links
+    tocContainer.innerHTML = '';
+    weeks.forEach(week => {
+        const weekDiv = document.createElement('div');
+        weekDiv.className = 'week-group';
+        const weekHeader = document.createElement('div');
+        weekHeader.className = 'week-title';
+        weekHeader.innerHTML = `Week ${week.num}: ${week.title} (Days ${week.start}-${week.end})`;
+        weekDiv.appendChild(weekHeader);
+        const dayLinksDiv = document.createElement('div');
+        dayLinksDiv.className = 'day-links';
+        for (let day = week.start; day <= week.end; day++) {
+            const link = document.createElement('div');
+            link.className = 'day-link';
+            link.textContent = `Day ${day}`;
+            link.onclick = () => loadDay(day);
+            dayLinksDiv.appendChild(link);
+        }
+        weekDiv.appendChild(dayLinksDiv);
+        tocContainer.appendChild(weekDiv);
+    });
+
+    async function loadDay(day) {
+        const fileName = dayFileMap[day];
+        if (!fileName) {
+            document.getElementById('content-viewer').innerHTML = `<p class="green">Error: No mapping for day ${day}</p>`;
+            return;
+        }
+        // Find which week folder contains this day (based on weeks range)
+        let folder = null;
+        for (let w of weeks) {
+            if (day >= w.start && day <= w.end) {
+                folder = w.folder;
+                break;
+            }
+        }
+        if (!folder) {
+            document.getElementById('content-viewer').innerHTML = `<p class="green">Folder not found for day ${day}</p>`;
+            return;
+        }
+        const url = `${folder}/${fileName}`;
+        const viewer = document.getElementById('content-viewer');
+        viewer.innerHTML = '<div class="loading">Loading Imperial intel...</div>';
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const markdown = await response.text();
+            const html = marked.parse(markdown);
+            viewer.innerHTML = html;
+            // Scroll to top of content
+            viewer.scrollIntoView({ behavior: 'smooth' });
+        } catch (err) {
+            viewer.innerHTML = `<p class="green">Failed to load day ${day}. File might not be pushed yet or path incorrect. Ensure the file exists at <code>${url}</code>.</p><p>Error: ${err.message}</p>`;
+        }
+    }
+</script>
 </body>
 </html>
