@@ -2,319 +2,185 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Imperial Cyber Book | Humbu Community Nexus</title>
-    <!-- Markdown parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE IMPERIAL CYBER BOOK | Director Humbulani</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #0a0a0a;
-            font-family: 'Segoe UI', 'Courier New', monospace;
-            color: #e0e0e0;
-            line-height: 1.6;
-        }
-        /* Imperial colour scheme */
         :root {
             --gold: #D4AF37;
-            --green: #00ff41;
-            --dark-bg: #050505;
-            --card-bg: #111111;
+            --bg: #050505;
+            --panel: #111111;
+            --green: #00FF41;
+            --text: #e0e0e0;
         }
-        .gold { color: var(--gold); }
-        .green { color: var(--green); }
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 2rem;
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            line-height: 1.6;
         }
-        /* Header / Cover */
-        .cover {
+
+        /* --- COMMAND HEADER --- */
+        header {
+            padding: 80px 20px;
             text-align: center;
-            padding: 5rem 2rem;
-            background: linear-gradient(135deg, #000000 0%, #0a1f0a 100%);
-            border-bottom: 3px solid var(--gold);
-            margin-bottom: 2rem;
+            border-bottom: 1px solid #222;
+            background: radial-gradient(circle at center, #1a1a00 0%, #050505 70%);
         }
-        .cover h1 {
-            font-size: 3.5rem;
-            letter-spacing: 5px;
+
+        .glitch-title {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 10px;
+            margin: 0;
+        }
+
+        .director-badge {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 1px solid var(--green);
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
             text-transform: uppercase;
         }
-        .cover h2 {
-            font-size: 1.5rem;
-            color: var(--green);
-            margin-top: 1rem;
+
+        /* --- CREDENTIAL GRID --- */
+        .credential-container {
+            max-width: 1200px;
+            margin: -50px auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
         }
-        .cover .tagline {
-            font-family: monospace;
-            margin-top: 1rem;
-            font-size: 1.1rem;
-        }
-        /* Director rank cards */
-        .rank-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-        }
-        .rank-card {
-            background: var(--card-bg);
-            border: 1px solid var(--gold);
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            min-width: 150px;
-            flex: 1;
-        }
-        .rank-card h3 { font-size: 0.9rem; color: var(--gold); }
-        .rank-card .value { font-size: 1.8rem; font-weight: bold; color: var(--green); }
-        /* Navigation TOC */
-        .toc {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .toc h2 { border-left: 4px solid var(--gold); padding-left: 1rem; margin-bottom: 1rem; }
-        .week-group {
-            margin-bottom: 1.5rem;
-        }
-        .week-title {
-            font-size: 1.3rem;
-            color: var(--gold);
-            margin-top: 1rem;
-            cursor: pointer;
-        }
-        .day-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-left: 1rem;
-            margin-top: 0.5rem;
-        }
-        .day-link {
-            background: #1e1e1e;
-            padding: 0.2rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.2s;
+
+        .cred-card {
+            background: var(--panel);
             border: 1px solid #333;
-        }
-        .day-link:hover {
-            background: var(--green);
-            color: black;
-            border-color: var(--green);
-        }
-        /* Content viewer */
-        .content-viewer {
-            background: #0c0c0c;
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-            padding: 2rem;
-            min-height: 500px;
-        }
-        .content-viewer h1, .content-viewer h2 {
-            color: var(--gold);
-            margin-top: 1.5rem;
-        }
-        .content-viewer pre {
-            background: #000;
-            padding: 1rem;
-            overflow-x: auto;
-            border-radius: 8px;
-            border-left: 3px solid var(--green);
-        }
-        .content-viewer code {
-            font-family: 'Courier New', monospace;
-            background: #1a1a1a;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-        }
-        footer {
+            padding: 30px;
             text-align: center;
-            margin-top: 3rem;
-            padding: 2rem;
+            transition: 0.4s;
+        }
+
+        .cred-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .cred-card h4 { color: #666; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .cred-val { display: block; font-size: 2.2rem; font-weight: 900; color: #fff; }
+        .cred-val.gold { color: var(--gold); }
+
+        /* --- 12-WEEK ROADMAP --- */
+        .roadmap { max-width: 1100px; margin: 80px auto; padding: 0 20px; }
+        .roadmap h2 { color: var(--gold); font-size: 2rem; border-left: 4px solid var(--gold); padding-left: 15px; margin-bottom: 40px; }
+
+        .week-block {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            background: #0d0d0d;
+            padding: 25px;
+            border-radius: 4px;
+            border-left: 2px solid #222;
+        }
+
+        .week-num { font-family: 'JetBrains Mono', monospace; color: var(--gold); font-weight: bold; min-width: 80px; }
+        .week-content h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: #fff; }
+        .week-content p { color: #888; font-size: 0.95rem; margin-bottom: 15px; }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: #222;
+            color: var(--gold);
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 20px;
+            text-align: center;
             border-top: 1px solid #222;
             font-size: 0.8rem;
-        }
-        .loading {
-            color: var(--green);
-            text-align: center;
-            padding: 2rem;
-        }
-        @media (max-width: 700px) {
-            .cover h1 { font-size: 2rem; }
-            .container { padding: 1rem; }
+            color: #444;
         }
     </style>
 </head>
 <body>
 
-<div class="cover">
-    <h1>⚔️ THE IMPERIAL CYBER BOOK ⚔️</h1>
-    <h2>From Zero to Operator – 60 Days on Termux (Mobile)</h2>
-    <p class="tagline">Humbu Community Nexus | Academic Series Volume 1</p>
-    <p class="tagline green">"In the terminal, we find the facts. In JSON, we organize the Absolute Truth. On this phone, we build an empire." — The Director</p>
-</div>
+    <header>
+        <div class="director-badge">Verified Operator: Humbulani Mudau</div>
+        <h1 class="glitch-title">Imperial Cyber Book</h1>
+        <p style="color: #666; letter-spacing: 3px;">FROM ZERO TO OPERATOR | 60 DAYS ON TERMUX</p>
+    </header>
 
-<div class="container">
-    <!-- Mission & Director's credentials -->
-    <div style="margin-bottom: 2rem;">
-        <h2 class="gold">🌍 Why This Book Exists</h2>
-        <p>We are entering an era where AI and robots will replace millions of jobs. The only way for Africa (and South Africa in particular) to thrive is to <strong>build and control the machines ourselves</strong>. This book trains a new generation of creators — not consumers — using only a smartphone. You will learn to build web servers, audit networks, automate data pipelines, integrate AI models, and deploy cloud services. This is our path to technological sovereignty, just as China and the West have done.</p>
-    </div>
-
-    <div>
-        <h2 class="gold">👑 Director’s Verified Authority</h2>
-        <div class="rank-grid">
-            <div class="rank-card"><h3>South Africa (Termux)</h3><div class="value">#1 Monthly</div></div>
-            <div class="rank-card"><h3>Global Skill Rank</h3><div class="value">Top 1%</div></div>
-            <div class="rank-card"><h3>Python Global</h3><div class="value">Top 20</div></div>
-            <div class="rank-card"><h3>ORCID Verified</h3><div class="value">0009‑0007‑3368‑5080</div></div>
-            <div class="rank-card"><h3>Platforms</h3><div class="value">GitHub · LinkedIn · ORCID</div></div>
+    <div class="credential-container">
+        <div class="cred-card">
+            <h4>SOUTH AFRICA RANKING</h4>
+            <span class="cred-val gold">#1</span>
+            <p style="font-size: 0.7rem; color: var(--green);">MONTHLY LEADERBOARD</p>
+        </div>
+        <div class="cred-card">
+            <h4>CAPABILITY SCORE</h4>
+            <span class="cred-val">66</span>
+            <p style="font-size: 0.7rem; color: #555;">VERIFIED CTF METRICS</p>
+        </div>
+        <div class="cred-card">
+            <h4>GLOBAL SKILL RANK</h4>
+            <span class="cred-val">TOP 1%</span>
+            <p style="font-size: 0.7rem; color: #555;">TRYHACKME GLOBAL</p>
         </div>
     </div>
 
-    <div class="toc">
-        <h2>📖 Table of Contents – 12 Weeks / 60 Days</h2>
-        <div id="toc-container"></div>
-        <p class="green" style="margin-top: 1rem;">👇 Click any day to read the full lesson.</p>
-    </div>
+    <main class="roadmap">
+        <h2>Technical Curriculum</h2>
 
-    <div class="content-viewer" id="content-viewer">
-        <p style="text-align:center; color:var(--green);">Select a day from the table of contents to begin.</p>
-    </div>
-</div>
+        <div class="week-block">
+            <div class="week-num">WEEK 01</div>
+            <div class="week-content">
+                <span class="tag">Foundation</span>
+                <h3>The Awakening</h3>
+                <p>Establishing the sovereign environment. Termux installation, filesystem architecture, and CLI fluency.</p>
+            </div>
+        </div>
 
-<footer>
-    <p>© 2026 Humbu Wandeme Trading Enterprise | Vhembe District, Limpopo</p>
-    <p>All code and instructions are tested for Termux on Android. Start your journey today.</p>
-</footer>
+        <div class="week-block">
+            <div class="week-num">WEEK 05</div>
+            <div class="week-content">
+                <span class="tag">AI Integration</span>
+                <h3>The Enterprise</h3>
+                <p>Scaling local services for business environments. Integrating reasoning models for automated reporting.</p>
+            </div>
+        </div>
 
-<script>
-    // Define the structure: week number, folder name, start day, end day
-    const weeks = [
-        { num: 1, folder: "Week_01_The_Awakening", start: 1, end: 5, title: "The Awakening" },
-        { num: 2, folder: "Week_02_The_Stack", start: 6, end: 10, title: "The Stack" },
-        { num: 3, folder: "Week_03_The_Web", start: 11, end: 15, title: "The Web Gateway" },
-        { num: 4, folder: "Week_04_The_Sentinel", start: 16, end: 20, title: "The Sentinel" },
-        { num: 5, folder: "Week_05_The_Enterprise", start: 21, end: 25, title: "The Enterprise" },
-        { num: 6, folder: "Week_06_Data_Engineering", start: 26, end: 30, title: "Data Engineering" },
-        { num: 7, folder: "Week_07_Automation", start: 31, end: 35, title: "Automation" },
-        { num: 8, folder: "Week_08_Containers", start: 36, end: 38, title: "Containers" },
-        { num: 9, folder: "Week_09_Cloud_Deploy", start: 39, end: 41, title: "Cloud Deploy & Hardening" },
-        { num: 10, folder: "Week_10_Cybersecurity_Deep", start: 42, end: 45, title: "Cybersecurity Deep" },
-        { num: 11, folder: "Week_11_Monitoring", start: 46, end: 49, title: "Monitoring & Observability" },
-        { num: 12, folder: "Week_12_Capstone_Project", start: 50, end: 60, title: "Capstone Project" }
-    ];
+        <div class="week-block">
+            <div class="week-num">WEEK 09</div>
+            <div class="week-content">
+                <span class="tag">Deployment</span>
+                <h3>Cloud Hardening</h3>
+                <p>Secure environment configuration using .env variables and Cloudflare tunneling.</p>
+            </div>
+        </div>
 
-    // Build table of contents dynamically
-    const tocContainer = document.getElementById('toc-container');
-    weeks.forEach(week => {
-        const weekDiv = document.createElement('div');
-        weekDiv.className = 'week-group';
-        const weekHeader = document.createElement('div');
-        weekHeader.className = 'week-title';
-        weekHeader.innerHTML = `Week ${week.num}: ${week.title} (Days ${week.start}-${week.end})`;
-        weekDiv.appendChild(weekHeader);
-        const dayLinksDiv = document.createElement('div');
-        dayLinksDiv.className = 'day-links';
-        for (let day = week.start; day <= week.end; day++) {
-            const dayNum = day;
-            const fileName = `Day_${String(dayNum).padStart(2,'0')}*.md`; // wildcard, but we'll construct exact name
-            // We need exact filenames. They follow pattern: Day_01_Termux_Setup.md etc.
-            // Instead of hardcoding 60 names, we'll use a mapping by reading the folder? Not possible client-side.
-            // Solution: we'll use a fetch to list contents? Too heavy. Better: since we know the exact naming from the book creation,
-            // we can provide a lookup object. But for simplicity, I'll generate a generic link that tries to guess the filename.
-            // To be robust, I'll create a mapping for all 60 days. (We can generate it here manually or use a pattern.)
-            // Let's generate pattern: "Day_XX_" + title. But easier: the actual files exist in the repo with exact names.
-            // For demonstration, I'll use a function that constructs possible names but better: use a known list from the book.
-            // Given the time, I'll assume the files follow "Day_XX_*.md" but we need exact to fetch.
-            // I'll provide a mapping for days 1-60 based on the earlier printf commands.
-        }
-        weekDiv.appendChild(dayLinksDiv);
-        tocContainer.appendChild(weekDiv);
-    });
+        <div class="week-block">
+            <div class="week-num">WEEK 12</div>
+            <div class="week-content">
+                <span class="tag">Capstone</span>
+                <h3>The Sovereign Node</h3>
+                <p>Containerizing the entire stack with proot-distro to deploy a persistent community nexus.</p>
+            </div>
+        </div>
+    </main>
 
-    // Because of complexity, I'll provide a full day-to-filename mapping based on the actual book content (simplified).
-    // This mapping covers all days 1-60 as created earlier.
-    const dayFileMap = {
-        1: "Day_01_Termux_Setup.md", 2: "Day_02_Navigation.md", 3: "Day_03_File_Operations.md", 4: "Day_04_Permissions.md", 5: "Day_05_Processes.md",
-        6: "Day_06_Python_Install.md", 7: "Day_07_First_Python_Script.md", 8: "Day_08_Bash_Sanitizer.md", 9: "Day_09_Network_Audit_Nmap.md", 10: "Day_10_SSH_Remote_Access.md",
-        11: "Day_11_Flask_Web_Server.md", 12: "Day_12_JSON_API.md", 13: "Day_13_Imperial_Dashboard.md", 14: "Day_14_Market_API.md", 15: "Day_15_Master_Gateway.md",
-        16: "Day_16_Vulnerability_Scan.md", 17: "Day_17_Password_Audit_Hydra.md", 18: "Day_18_Packet_Sniffing_TCPDump.md", 19: "Day_19_Firewall_Logic.md", 20: "Day_20_Final_Audit.md",
-        21: "Day_21_Stock_Tracker.md", 22: "Day_22_Data_Logger.md", 23: "Day_23_API_Retry.md", 24: "Day_24_Scheduled_Tasks.md", 25: "Day_25_Alerts.md",
-        26: "Day_26_Terminal_Charts.md", 27: "Day_27_SQLite.md", 28: "Day_28_SQL_Queries.md", 29: "Day_29_Export.md", 30: "Day_30_Pipeline.md",
-        31: "Day_31_Bash_Loops.md", 32: "Day_32_Bash_Conditionals.md", 33: "Day_33_Bash_Functions.md", 34: "Day_34_Scheduling.md", 35: "Day_35_Log_Rotation.md",
-        36: "Day_36_Proot_Distro.md", 37: "Day_37_Custom_Container.md", 38: "Day_38_Container_Webserver.md", 39: "Day_39_Cloud_Deploy.md", 40: "Day_40_Tmux.md",
-        41: "Day_41_Env_Vars.md", 42: "Day_42_SSH_Hardening.md", 43: "Day_43_Fail2ban.md", 44: "Day_44_Lynis.md", 45: "Day_45_AIDE.md",
-        46: "Day_46_Glances.md", 47: "Day_47_Central_Logging.md", 48: "Day_48_Health_Dashboard.md", 49: "Day_49_Prometheus.md", 50: "Day_50_Capstone_Intro.md",
-        51: "Day_51_Capstone_Data.md", 52: "Day_52_Capstone_Chart.md", 53: "Day_53_Capstone_Alert.md", 54: "Day_54_Capstone_Scheduler.md", 55: "Day_55_Capstone_Container.md",
-        56: "Day_56_Capstone_Docs.md", 57: "Day_57_Capstone_Testing.md", 58: "Day_58_Capstone_Security.md", 59: "Day_59_Capstone_Report.md", 60: "Day_60_Graduation.md"
-    };
+    <footer>
+        <p>DIRECTOR: HUMBULANI MUDAU | CEO: HUMBU WANDEME TRADING ENTERPRISE</p>
+        <p>ORCID: 0009-0000-9572-4535 | THOHOYANDOU, SOUTH AFRICA</p>
+    </footer>
 
-    // Rebuild TOC with actual links
-    tocContainer.innerHTML = '';
-    weeks.forEach(week => {
-        const weekDiv = document.createElement('div');
-        weekDiv.className = 'week-group';
-        const weekHeader = document.createElement('div');
-        weekHeader.className = 'week-title';
-        weekHeader.innerHTML = `Week ${week.num}: ${week.title} (Days ${week.start}-${week.end})`;
-        weekDiv.appendChild(weekHeader);
-        const dayLinksDiv = document.createElement('div');
-        dayLinksDiv.className = 'day-links';
-        for (let day = week.start; day <= week.end; day++) {
-            const link = document.createElement('div');
-            link.className = 'day-link';
-            link.textContent = `Day ${day}`;
-            link.onclick = () => loadDay(day);
-            dayLinksDiv.appendChild(link);
-        }
-        weekDiv.appendChild(dayLinksDiv);
-        tocContainer.appendChild(weekDiv);
-    });
-
-    async function loadDay(day) {
-        const fileName = dayFileMap[day];
-        if (!fileName) {
-            document.getElementById('content-viewer').innerHTML = `<p class="green">Error: No mapping for day ${day}</p>`;
-            return;
-        }
-        // Find which week folder contains this day (based on weeks range)
-        let folder = null;
-        for (let w of weeks) {
-            if (day >= w.start && day <= w.end) {
-                folder = w.folder;
-                break;
-            }
-        }
-        if (!folder) {
-            document.getElementById('content-viewer').innerHTML = `<p class="green">Folder not found for day ${day}</p>`;
-            return;
-        }
-        const url = `${folder}/${fileName}`;
-        const viewer = document.getElementById('content-viewer');
-        viewer.innerHTML = '<div class="loading">Loading Imperial intel...</div>';
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const markdown = await response.text();
-            const html = marked.parse(markdown);
-            viewer.innerHTML = html;
-            // Scroll to top of content
-            viewer.scrollIntoView({ behavior: 'smooth' });
-        } catch (err) {
-            viewer.innerHTML = `<p class="green">Failed to load day ${day}. File might not be pushed yet or path incorrect. Ensure the file exists at <code>${url}</code>.</p><p>Error: ${err.message}</p>`;
-        }
-    }
-</script>
 </body>
 </html>
