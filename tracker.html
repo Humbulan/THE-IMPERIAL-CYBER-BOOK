@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Micro-Coaching Tracker | Imperial Cyber Book</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #0f766e; margin-bottom: 5px; }
+        .subtitle { color: #666; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #0f766e; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.9em; }
+        .badge-1 { background-color: #ffedd5; color: #9a3412; border: 1px solid #fdba74; }
+        .badge-2 { background-color: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+        .badge-3 { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .status-cell { display: flex; flex-direction: column; gap: 10px; }
+        input[type="date"] { padding: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        .back-btn { display: inline-block; margin-top: 20px; padding: 10px 15px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Completion & Badge Tracker</h1>
+    <p class="subtitle">Real-world performance milestones for sub-10-minute modules.</p>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Module & Time</th>
+                <th>Real-World Performance Proof</th>
+                <th>Gamification Badge</th>
+                <th>Status & Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong><a href="module01.html">1. Boundary Reset</a></strong><br><small>7 minutes</small></td>
+                <td>Send a 2-sentence boundary with zero apologies in a real interaction within 24 hours.</td>
+                <td><span class="badge badge-1">Boundary Shield</span></td>
+                <td class="status-cell">
+                    <label><input type="checkbox" class="module-check" data-id="mod1"> Earned</label>
+                    <input type="date" class="module-date" data-id="mod1">
+                </td>
+            </tr>
+            <tr>
+                <td><strong><a href="module02.html">2. Decision Unlocker</a></strong><br><small>8 minutes</small></td>
+                <td>Pick one stalled choice, set a 48-hour rollback rule, and execute step one within 1 hour.</td>
+                <td><span class="badge badge-2">Momentum & Bias-Spotter</span></td>
+                <td class="status-cell">
+                    <label><input type="checkbox" class="module-check" data-id="mod2"> Earned</label>
+                    <input type="date" class="module-date" data-id="mod2">
+                </td>
+            </tr>
+            <tr>
+                <td><strong><a href="module03.html">3. Attention Reset</a></strong><br><small>9 minutes</small></td>
+                <td>Run the 3-step screen-off reset after a stressor; finish your #1 task before opening notifications.</td>
+                <td><span class="badge badge-3">Deep-Focus Pass</span></td>
+                <td class="status-cell">
+                    <label><input type="checkbox" class="module-check" data-id="mod3"> Earned</label>
+                    <input type="date" class="module-date" data-id="mod3">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin-top: 20px;">
+        <strong>Final Milestone:</strong> When all three real-world proofs are shared and verified, you unlock the <strong>Daily Self-Leadership</strong> milestone.
+    </div>
+    <a href="index.html" class="back-btn">← Back to Imperial Cyber Book</a>
+</div>
+<script>
+    document.querySelectorAll('.module-check, .module-date').forEach(element => {
+        const id = element.getAttribute('data-id');
+        const type = element.type;
+        if (type === 'checkbox') { element.checked = localStorage.getItem(id + '_check') === 'true'; } 
+        else if (type === 'date') { element.value = localStorage.getItem(id + '_date') || ''; }
+        element.addEventListener('change', () => {
+            if (type === 'checkbox') { localStorage.setItem(id + '_check', element.checked); } 
+            else { localStorage.setItem(id + '_date', element.value); }
+        });
+    });
+</script>
+</body>
+</html>
