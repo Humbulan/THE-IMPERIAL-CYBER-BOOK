@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 02: Decision Unlocker</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #0f766e; margin-top: 0; }
+        .meta { color: #666; font-size: 0.9em; margin-bottom: 15px; }
+        .callout-info { background: #e0f2fe; border-left: 4px solid #0284c7; padding: 15px; margin: 15px 0; }
+        .callout-warn { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 15px 0; }
+        .field-group { margin: 12px 0; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], textarea, select { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+        button, .btn { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 10px 15px; background: #0f766e; color: white; border: none; text-decoration: none; border-radius: 5px; cursor: pointer; font-size: 0.95em; }
+        .btn-dark { background: #333; }
+        .copy-status { margin-left: 8px; font-weight: bold; color: #0f766e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="meta">MODULE 02 | TIME: 8 MINUTES | FOCUS: ANTI-OVERTHINKING</div>
+    <h1>The 8-Minute Decision Unlocker</h1>
+    <p><em>Break out of analysis paralysis in under 10 minutes.</em></p>
+    <hr>
+    <h3>The Core Problem</h3>
+    <p>Overthinking happens when you treat small, reversible choices like permanent life decisions. Waiting for 100% certainty stalls momentum and burns mental energy.</p>
+    <h3>The Two-Door Rule</h3>
+    <ul>
+        <li><strong>Two-Way Door (Reversible — 90% of daily choices):</strong> If it doesn't work, you can undo, adjust, or walk back through within 48 hours. Decide in 3 minutes and test.</li>
+        <li><strong>One-Way Door (Irreversible — 10% of choices):</strong> High financial, legal, or permanent impact. Gather facts and consult before acting.</li>
+    </ul>
+    <div class="callout-warn">
+        <strong>Key Insight:</strong> Never spend One-Way Door energy on a Two-Way Door decision.
+    </div>
+    <h3>5-Minute Sprint &amp; WhatsApp Proof Builder</h3>
+    <div class="field-group">
+        <label for="m2-choice">1. Stalled Choice</label>
+        <input id="m2-choice" type="text" placeholder="e.g., Choosing which task to ship first today">
+    </div>
+    <div class="field-group">
+        <label for="m2-door">2. Door Classification</label>
+        <select id="m2-door">
+            <option value="Two-Way Door (Reversible)">Two-Way Door (Reversible)</option>
+            <option value="One-Way Door (Permanent)">One-Way Door (Permanent)</option>
+        </select>
+    </div>
+    <div class="field-group">
+        <label for="m2-rollback">3. 48-Hour Rollback Rule</label>
+        <input id="m2-rollback" type="text" placeholder="How will you undo or adjust this within 48 hours?">
+    </div>
+    <div class="field-group">
+        <label for="m2-bias">4. Bias Check</label>
+        <input id="m2-bias" type="text" placeholder="Perfectionism / Fear of Judgment / Sunk Cost">
+    </div>
+    <div class="field-group">
+        <label for="m2-step">5. First Action Completed (within 1 hour)</label>
+        <textarea id="m2-step" rows="2" placeholder="Describe the first concrete step you took..."></textarea>
+    </div>
+    <button type="button" id="copy-m2">Copy Proof for WhatsApp</button>
+    <span class="copy-status" id="status-m2"></span>
+    <hr>
+    <div class="callout-info">
+        <strong>Badge:</strong> Momentum &amp; Bias-Spotter<br>
+        <strong>Requirement:</strong> Pick one stalled choice, set a 48-hour rollback rule (if reversible), and execute step one within 1 hour.
+    </div>
+    <a href="tracker.html" class="btn">Go to Tracker →</a>
+    <a href="index.html" class="btn btn-dark">← Back to Home</a>
+</div>
+<script>
+    const fields = ['m2-choice', 'm2-door', 'm2-rollback', 'm2-bias', 'm2-step'];
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        el.value = localStorage.getItem(id) || el.value;
+        el.addEventListener('input', () => localStorage.setItem(id, el.value));
+        el.addEventListener('change', () => localStorage.setItem(id, el.value));
+    });
+    document.getElementById('copy-m2').addEventListener('click', () => {
+        const text = [
+            'Decision Receipt (Module 02):',
+            '- Choice: ' + (document.getElementById('m2-choice').value || '[pending]'),
+            '- Door: ' + document.getElementById('m2-door').value,
+            '- 48h Rollback: ' + (document.getElementById('m2-rollback').value || '[pending]'),
+            '- Bias: ' + (document.getElementById('m2-bias').value || '[none listed]'),
+            '- First Action: ' + (document.getElementById('m2-step').value || '[pending]')
+        ].join('\n');
+        navigator.clipboard?.writeText(text);
+        document.getElementById('status-m2').textContent = 'Copied!';
+    });
+</script>
+</body>
+</html>

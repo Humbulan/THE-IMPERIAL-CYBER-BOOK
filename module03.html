@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 03: Attention & Recovery Reset</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #0f766e; margin-top: 0; }
+        .meta { color: #666; font-size: 0.9em; margin-bottom: 15px; }
+        .callout-info { background: #dcfce7; border-left: 4px solid #16a34a; padding: 15px; margin: 15px 0; }
+        .field-group { margin: 12px 0; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], textarea { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+        button, .btn { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 10px 15px; background: #0f766e; color: white; border: none; text-decoration: none; border-radius: 5px; cursor: pointer; font-size: 0.95em; }
+        .btn-dark { background: #333; }
+        .copy-status { margin-left: 8px; font-weight: bold; color: #0f766e; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="meta">MODULE 03 | TIME: 9 MINUTES | FOCUS: CALM &amp; DEEP FOCUS</div>
+    <h1>The 9-Minute Attention &amp; Recovery Reset</h1>
+    <p><em>Clear stress residue and regain control before opening notifications.</em></p>
+    <hr>
+    <h3>The Core Problem</h3>
+    <p>After a tense call, conflict, or heavy 90-minute work block, your nervous system stays in high-alert mode. Jumping straight into messages or social feeds fragments your attention.</p>
+    <h3>The 3-Step Reset Protocol</h3>
+    <ol>
+        <li><strong>Screen-Off Downshift (3 Minutes):</strong> Step away from screens. Inhale 4s, hold 2s, exhale slowly 6s (repeat 8 times).</li>
+        <li><strong>Brain Dump (2 Minutes):</strong> Write down open loops or nagging thoughts so your mind doesn't hold onto them.</li>
+        <li><strong>Single-Action Lock (1 Minute):</strong> Pick one concrete 30-minute task before checking any notifications.</li>
+    </ol>
+    <h3>Calibration &amp; WhatsApp Proof Builder</h3>
+    <div class="field-group">
+        <label for="m3-trigger">1. Reset Trigger (call, conflict, or focus block)</label>
+        <input id="m3-trigger" type="text" placeholder="e.g., High-pressure call or afternoon context switching">
+    </div>
+    <div class="field-group">
+        <label for="m3-task">2. Single Next Action (completed before opening notifications)</label>
+        <input id="m3-task" type="text" placeholder="One concrete task for the next 30 minutes">
+    </div>
+    <div class="field-group">
+        <label for="m3-noise">3. Mental Noise Score Before vs. After (1 = Calm, 5 = Scattered)</label>
+        <textarea id="m3-noise" rows="2" placeholder="e.g., Before: 4/5 -> After: 2/5"></textarea>
+    </div>
+    <button type="button" id="copy-m3">Copy Proof for WhatsApp</button>
+    <span class="copy-status" id="status-m3"></span>
+    <hr>
+    <div class="callout-info">
+        <strong>Badge:</strong> Deep-Focus Pass<br>
+        <strong>Requirement:</strong> Complete the reset after a stressor and finish your #1 task before opening notifications (3 times across 7 days).
+    </div>
+    <a href="tracker.html" class="btn">Go to Tracker →</a>
+    <a href="index.html" class="btn btn-dark">← Back to Home</a>
+</div>
+<script>
+    const fields = ['m3-trigger', 'm3-task', 'm3-noise'];
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        el.value = localStorage.getItem(id) || el.value;
+        el.addEventListener('input', () => localStorage.setItem(id, el.value));
+    });
+    document.getElementById('copy-m3').addEventListener('click', () => {
+        const text = [
+            'Post-Reset Snapshot (Module 03):',
+            '- Trigger: ' + (document.getElementById('m3-trigger').value || '[pending]'),
+            '- Single Task Completed First: ' + (document.getElementById('m3-task').value || '[pending]'),
+            '- Noise Score: ' + (document.getElementById('m3-noise').value || '[pending]')
+        ].join('\n');
+        navigator.clipboard?.writeText(text);
+        document.getElementById('status-m3').textContent = 'Copied!';
+    });
+</script>
+</body>
+</html>
