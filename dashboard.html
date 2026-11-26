@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imperial Nexus Dashboard</title>
     <style>
-        body { font-family: monospace; background: #0f172a; color: #10b981; padding: 20px; }
+        body { font-family: 'Courier New', monospace; background: #0f172a; color: #e2e8f0; padding: 20px; }
         .container { max-width: 900px; margin: auto; }
-        .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        h1, h2 { color: #f8fafc; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        h1, h2 { color: #10b981; margin-top: 0; }
         .critical { color: #ef4444; font-weight: bold; }
         .high { color: #f59e0b; font-weight: bold; }
+        .money { font-size: 2em; color: #10b981; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9em; }
+        th, td { text-align: left; padding: 8px; border-bottom: 1px solid #334155; }
+        th { color: #94a3b8; }
         .back-btn { display: inline-block; margin-top: 20px; padding: 10px 15px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
     </style>
 </head>
@@ -18,14 +23,31 @@
 <div class="container">
     <h1>🏛️ Imperial Nexus Live Dashboard</h1>
     
-    <div class="card" id="wealth-panel">
-        <h2>💰 Financial Overview</h2>
-        <p>Loading wealth data...</p>
+    <div class="grid">
+        <div class="card">
+            <h2>💰 Real Revenue</h2>
+            <div class="money" id="revenue">R0</div>
+            <p style="color: #94a3b8; font-size: 0.85em; margin-bottom: 0;">Scraper Last Run: <span id="scrape-time"></span></p>
+        </div>
+        
+        <div class="card">
+            <h2>📈 Wealth Valuation</h2>
+            <p>Portfolio: <span id="pv" style="color: #10b981;"></span></p>
+            <p>True Valuation: <span id="tv" style="color: #10b981;"></span></p>
+        </div>
     </div>
 
-    <div class="card">
+    <div class="card" style="margin-top: 20px;">
         <h2>🚨 Active Governance Risks</h2>
-        <ul id="risk-list">Loading risks...</ul>
+        <ul id="risk-list"></ul>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>📋 Upcoming Tenders (Vhembe)</h2>
+        <table>
+            <thead><tr><th>Tender Number</th><th>Title</th><th>Closing Date</th></tr></thead>
+            <tbody id="tender-list"></tbody>
+        </table>
     </div>
 
     <a href="index.html" class="back-btn">← Back to Imperial Cyber Book</a>
@@ -35,29 +57,32 @@
     fetch('dashboard_data.json')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('wealth-panel').innerHTML = `
-                <h2>💰 Financial Overview</h2>
-                <p>Portfolio Value: R${Number(data.wealth.portfolio_value).toLocaleString()}</p>
-                <p>True Valuation: R${Number(data.wealth.true_valuation).toLocaleString()}</p>
-                <p style="color: #94a3b8; font-size: 0.9em;">Last Sync: ${data.last_updated}</p>
-            `;
+            // Revenue & Scraper
+            document.getElementById('revenue').innerText = `R${Number(data.real_revenue).toLocaleString()}`;
+            document.getElementById('scrape-time').innerText = data.last_scrape;
 
+            // Wealth
+            document.getElementById('pv').innerText = `R${Number(data.wealth.portfolio_value).toLocaleString()}`;
+            document.getElementById('tv').innerText = `R${Number(data.wealth.true_valuation).toLocaleString()}`;
+
+            // Risks
             const riskList = document.getElementById('risk-list');
-            riskList.innerHTML = '';
-            if (data.risks.length === 0) {
-                riskList.innerHTML = '<li>No high/critical risks found.</li>';
-            } else {
-                data.risks.forEach(risk => {
-                    const li = document.createElement('li');
-                    const cssClass = risk.risk_level === 'critical' ? 'critical' : 'high';
-                    li.innerHTML = `<span class="${cssClass}">[${risk.risk_level.toUpperCase()}]</span> ${risk.project_name} - <span style="color:#94a3b8;">${risk.status}</span>`;
-                    riskList.appendChild(li);
-                });
-            }
+            data.risks.forEach(risk => {
+                const li = document.createElement('li');
+                const cssClass = risk.risk_level === 'critical' ? 'critical' : 'high';
+                li.innerHTML = `<span class="${cssClass}">[${risk.risk_level.toUpperCase()}]</span> ${risk.project_name} - <span style="color:#94a3b8;">${risk.status}</span>`;
+                riskList.appendChild(li);
+            });
+
+            // Tenders
+            const tenderList = document.getElementById('tender-list');
+            data.tenders.forEach(tender => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${tender.tender_number}</td><td>${tender.title}</td><td>${tender.closing_date}</td>`;
+                tenderList.appendChild(tr);
+            });
         })
-        .catch(err => {
-            document.getElementById('wealth-panel').innerHTML = `<p class="critical">Error loading data. Run ./update_dashboard.sh</p>`;
-        });
+        .catch(err => console.error("Error loading data:", err));
 </script>
 </body>
 </html>

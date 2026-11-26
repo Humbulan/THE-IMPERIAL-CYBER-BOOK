@@ -1,8 +1,10 @@
 {
-  "last_updated": "Unknown",
+  "real_revenue": "0",
+  "last_scrape": "Unknown",
   "wealth": {
     "portfolio_value": "0",
     "true_valuation": "0"
   },
-  "risks": []
+  "risks": [],
+  "tenders": []
 }
