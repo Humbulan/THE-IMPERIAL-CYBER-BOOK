@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperial Nexus Dashboard</title>
+    <style>
+        body { font-family: monospace; background: #0f172a; color: #10b981; padding: 20px; }
+        .container { max-width: 900px; margin: auto; }
+        .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        h1, h2 { color: #f8fafc; }
+        .critical { color: #ef4444; font-weight: bold; }
+        .high { color: #f59e0b; font-weight: bold; }
+        .back-btn { display: inline-block; margin-top: 20px; padding: 10px 15px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🏛️ Imperial Nexus Live Dashboard</h1>
+    
+    <div class="card" id="wealth-panel">
+        <h2>💰 Financial Overview</h2>
+        <p>Loading wealth data...</p>
+    </div>
+
+    <div class="card">
+        <h2>🚨 Active Governance Risks</h2>
+        <ul id="risk-list">Loading risks...</ul>
+    </div>
+
+    <a href="index.html" class="back-btn">← Back to Imperial Cyber Book</a>
+</div>
+
+<script>
+    fetch('dashboard_data.json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('wealth-panel').innerHTML = `
+                <h2>💰 Financial Overview</h2>
+                <p>Portfolio Value: R${Number(data.wealth.portfolio_value).toLocaleString()}</p>
+                <p>True Valuation: R${Number(data.wealth.true_valuation).toLocaleString()}</p>
+                <p style="color: #94a3b8; font-size: 0.9em;">Last Sync: ${data.last_updated}</p>
+            `;
+
+            const riskList = document.getElementById('risk-list');
+            riskList.innerHTML = '';
+            if (data.risks.length === 0) {
+                riskList.innerHTML = '<li>No high/critical risks found.</li>';
+            } else {
+                data.risks.forEach(risk => {
+                    const li = document.createElement('li');
+                    const cssClass = risk.risk_level === 'critical' ? 'critical' : 'high';
+                    li.innerHTML = `<span class="${cssClass}">[${risk.risk_level.toUpperCase()}]</span> ${risk.project_name} - <span style="color:#94a3b8;">${risk.status}</span>`;
+                    riskList.appendChild(li);
+                });
+            }
+        })
+        .catch(err => {
+            document.getElementById('wealth-panel').innerHTML = `<p class="critical">Error loading data. Run ./update_dashboard.sh</p>`;
+        });
+</script>
+</body>
+</html>
